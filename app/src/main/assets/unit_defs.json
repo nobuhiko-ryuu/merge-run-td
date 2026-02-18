@@ -45,7 +45,8 @@
       "mergeEffect": {
         "type": "knockback",
         "value": 1.4
-      }
+      },
+      "baseHp": 70
     }
   ],
   "shop": {

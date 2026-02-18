@@ -55,10 +55,12 @@ Merge Run TD is a stage-based merge + lane defense game MVP for Android using Ko
   - SPLASH: merge explosion
   - SLOW: slow field
   - WALL: knockback (+ optional stun through upgrade)
+- WALL units have defensive HP (baseHp in unit definitions) in addition to attack stats.
 
 ## Upgrades Rules
 - Offered after wave 2 and wave 4.
-- Upgrade classes: Instant / Rule / Transform.
+- Upgrade classes: INSTANT / RULE / TRANSFORM.
+- Transform means a permanent modification to a role's behavior or stats (for example WALL gains stun, SLOW field bonus).
 - Transform cap: max 1 per run.
 - Timeout: 6 sec, then auto-pick Instant.
 

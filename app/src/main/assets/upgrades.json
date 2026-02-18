@@ -2,40 +2,40 @@
   "upgrades": [
     {
       "id": "u_atk_1",
-      "type": "Instant",
+      "type": "INSTANT",
       "name": "Overclock I",
       "atkMul": 1.12
     },
     {
       "id": "u_aspd_1",
-      "type": "Instant",
+      "type": "INSTANT",
       "name": "Servo Tune",
       "aspdMul": 1.12
     },
     {
       "id": "u_econ_rule",
-      "type": "Rule",
+      "type": "RULE",
       "name": "Cheap Reroll",
       "rerollCostDelta": -1,
       "maxApplications": 1
     },
     {
       "id": "u_free_roll",
-      "type": "Rule",
+      "type": "RULE",
       "name": "Lucky Start",
       "waveStartFreeRerollBonus": 1,
       "maxApplications": 2
     },
     {
       "id": "u_wall_stun",
-      "type": "Transform",
+      "type": "TRANSFORM",
       "name": "Impact Core",
       "targetRole": "WALL",
       "stunSec": 0.8
     },
     {
       "id": "u_slow_field",
-      "type": "Transform",
+      "type": "TRANSFORM",
       "name": "Cryo Expansion",
       "targetRole": "SLOW",
       "slowFieldBonus": 0.12
@@ -48,6 +48,6 @@
     ],
     "timeoutSec": 6,
     "maxTransformPerRun": 1,
-    "autoPickTypeOnTimeout": "Instant"
+    "autoPickTypeOnTimeout": "INSTANT"
   }
 }
