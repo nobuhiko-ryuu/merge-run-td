@@ -1,0 +1,7 @@
+{
+  "upgrades": [
+    { "id": "atk_boost", "type": "Instant", "atkMul": 1.1 },
+    { "id": "aspd_boost", "type": "Rule", "aspdMul": 1.1 },
+    { "id": "wall_stun", "type": "Transform", "wallStun": true }
+  ]
+}

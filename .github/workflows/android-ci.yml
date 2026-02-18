@@ -1,0 +1,35 @@
+name: Android CI
+
+on:
+  pull_request:
+  push:
+    branches: [ "main", "master", "work", "pr0-bootstrap" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Ktlint check
+        run: ./gradlew ktlintCheck
+
+      - name: Unit tests
+        run: ./gradlew test
+
+      - name: Assemble debug
+        run: ./gradlew assembleDebug

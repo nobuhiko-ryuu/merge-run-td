@@ -1,0 +1,7 @@
+{
+  "enemies": [
+    { "id": "grunt", "hp": 100, "speed": 1.0, "boss": false },
+    { "id": "runner", "hp": 70, "speed": 1.4, "boss": false },
+    { "id": "boss", "hp": 1500, "speed": 0.7, "boss": true }
+  ]
+}

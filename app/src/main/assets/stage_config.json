@@ -1,0 +1,16 @@
+{
+  "stages": [
+    {
+      "stage": 1,
+      "hpMul": 1.0,
+      "spdMul": 1.0,
+      "waves": [
+        { "wave": 1, "durationSec": 12, "spawnTotal": 8 },
+        { "wave": 2, "durationSec": 13, "spawnTotal": 10 },
+        { "wave": 3, "durationSec": 13, "spawnTotal": 12 },
+        { "wave": 4, "durationSec": 14, "spawnTotal": 14 },
+        { "wave": 5, "durationSec": 15, "spawnTotal": 1, "boss": true }
+      ]
+    }
+  ]
+}

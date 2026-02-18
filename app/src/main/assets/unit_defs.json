@@ -1,0 +1,8 @@
+{
+  "units": [
+    { "id": "shooter", "role": "SHOOTER", "baseAtk": 10, "atkSpd": 1.0 },
+    { "id": "splash", "role": "SPLASH", "baseAtk": 8, "atkSpd": 0.8 },
+    { "id": "slow", "role": "SLOW", "baseAtk": 4, "atkSpd": 0.6 },
+    { "id": "wall", "role": "WALL", "baseAtk": 2, "atkSpd": 0.5 }
+  ]
+}
