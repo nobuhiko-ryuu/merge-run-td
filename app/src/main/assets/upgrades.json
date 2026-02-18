@@ -1,7 +1,53 @@
 {
   "upgrades": [
-    { "id": "atk_boost", "type": "Instant", "atkMul": 1.1 },
-    { "id": "aspd_boost", "type": "Rule", "aspdMul": 1.1 },
-    { "id": "wall_stun", "type": "Transform", "wallStun": true }
-  ]
+    {
+      "id": "atk_boost_i",
+      "name": "Sharpened Ammo",
+      "type": "Instant",
+      "atkMul": 1.12
+    },
+    {
+      "id": "aspd_boost_i",
+      "name": "Quick Hands",
+      "type": "Instant",
+      "aspdMul": 1.12
+    },
+    {
+      "id": "economy_rule",
+      "name": "Thrifty Circuit",
+      "type": "Rule",
+      "shopRerollCostDelta": -1,
+      "maxApplications": 1
+    },
+    {
+      "id": "free_reroll_rule",
+      "name": "Lucky Refresh",
+      "type": "Rule",
+      "waveStartFreeRerollBonus": 1,
+      "maxApplications": 2
+    },
+    {
+      "id": "wall_stun_t",
+      "name": "Concussion Plating",
+      "type": "Transform",
+      "targetRole": "WALL",
+      "knockbackStunSec": 0.8
+    },
+    {
+      "id": "slow_amp_t",
+      "name": "Cryo Bloom",
+      "type": "Transform",
+      "targetRole": "SLOW",
+      "slowFieldBonusPct": 0.12
+    }
+  ],
+  "rules": {
+    "offerAfterWaves": [
+      2,
+      4
+    ],
+    "timeoutSec": 6,
+    "maxTransformPerRun": 1,
+    "autoPickTypeOnTimeout": "Instant"
+  }
 }

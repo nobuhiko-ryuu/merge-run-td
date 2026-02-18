@@ -5,11 +5,1239 @@
       "hpMul": 1.0,
       "spdMul": 1.0,
       "waves": [
-        { "wave": 1, "durationSec": 12, "spawnTotal": 8 },
-        { "wave": 2, "durationSec": 13, "spawnTotal": 10 },
-        { "wave": 3, "durationSec": 13, "spawnTotal": 12 },
-        { "wave": 4, "durationSec": 14, "spawnTotal": 14 },
-        { "wave": 5, "durationSec": 15, "spawnTotal": 1, "boss": true }
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 9,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 11,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 13,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 15,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 13,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 12,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "hpMul": 1.12,
+      "spdMul": 1.03,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 10,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 13,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 15,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 17,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 14,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 13,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "hpMul": 1.24,
+      "spdMul": 1.06,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 12,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 14,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 17,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 19,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 16,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 15,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "hpMul": 1.36,
+      "spdMul": 1.09,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 13,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 16,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 18,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 21,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 17,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 16,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 5,
+      "hpMul": 1.48,
+      "spdMul": 1.12,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 14,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 17,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 20,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 23,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 19,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 18,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 6,
+      "hpMul": 1.6,
+      "spdMul": 1.15,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 15,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 19,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 22,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 26,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 21,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 20,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 7,
+      "hpMul": 1.72,
+      "spdMul": 1.18,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 17,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 20,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 24,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 28,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 22,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 21,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 8,
+      "hpMul": 1.84,
+      "spdMul": 1.21,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 18,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 22,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 26,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 30,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 24,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 23,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 9,
+      "hpMul": 1.96,
+      "spdMul": 1.24,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 19,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 23,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 28,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 32,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 25,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 24,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 10,
+      "hpMul": 2.08,
+      "spdMul": 1.27,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 20,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 25,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 29,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 34,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 27,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 26,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 11,
+      "hpMul": 2.2,
+      "spdMul": 1.3,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 22,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 26,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 31,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 36,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 29,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 28,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 12,
+      "hpMul": 2.32,
+      "spdMul": 1.33,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 23,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 28,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 33,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 38,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 30,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 29,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 13,
+      "hpMul": 2.44,
+      "spdMul": 1.36,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 24,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 29,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 35,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 40,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 32,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 31,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 14,
+      "hpMul": 2.56,
+      "spdMul": 1.39,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 25,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 31,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 37,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 42,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 33,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 32,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 15,
+      "hpMul": 2.68,
+      "spdMul": 1.42,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 27,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 33,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 38,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 44,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 35,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 34,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 16,
+      "hpMul": 2.8,
+      "spdMul": 1.45,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 28,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 34,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 40,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 46,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 37,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 36,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 17,
+      "hpMul": 2.92,
+      "spdMul": 1.48,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 29,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 36,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 42,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 49,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 38,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 37,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 18,
+      "hpMul": 3.04,
+      "spdMul": 1.51,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 30,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 37,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 44,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 51,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 40,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 39,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 19,
+      "hpMul": 3.16,
+      "spdMul": 1.54,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 32,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 39,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 46,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 53,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 41,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 40,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": 20,
+      "hpMul": 3.28,
+      "spdMul": 1.57,
+      "waves": [
+        {
+          "wave": 1,
+          "durationSec": 12,
+          "spawnTotal": 33,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 2,
+          "durationSec": 13,
+          "spawnTotal": 40,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 3,
+          "durationSec": 13,
+          "spawnTotal": 48,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 4,
+          "durationSec": 14,
+          "spawnTotal": 55,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        },
+        {
+          "wave": 5,
+          "durationSec": 15,
+          "spawnTotal": 43,
+          "boss": true,
+          "bossEnemyId": "boss",
+          "bossSpawnSec": 2.0,
+          "escortSpawnStartSec": 4.0,
+          "escortSpawnTotal": 42,
+          "enemyPool": [
+            "grunt",
+            "runner",
+            "tank"
+          ]
+        }
       ]
     }
   ]

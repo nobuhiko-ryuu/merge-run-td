@@ -1,8 +1,75 @@
 {
   "units": [
-    { "id": "shooter", "role": "SHOOTER", "baseAtk": 10, "atkSpd": 1.0 },
-    { "id": "splash", "role": "SPLASH", "baseAtk": 8, "atkSpd": 0.8 },
-    { "id": "slow", "role": "SLOW", "baseAtk": 4, "atkSpd": 0.6 },
-    { "id": "wall", "role": "WALL", "baseAtk": 2, "atkSpd": 0.5 }
-  ]
+    {
+      "id": "shooter",
+      "name": "Shooter",
+      "role": "SHOOTER",
+      "baseAtk": 10,
+      "atkSpd": 1.0,
+      "rangeTiles": 4.5,
+      "projectileCount": 1,
+      "mergeEffect": {
+        "type": "EXTRA_SHOT",
+        "bonusProjectiles": 1,
+        "durationSec": 3.0
+      }
+    },
+    {
+      "id": "splash",
+      "name": "Splash",
+      "role": "SPLASH",
+      "baseAtk": 8,
+      "atkSpd": 0.8,
+      "rangeTiles": 3.8,
+      "splashRadiusTiles": 1.2,
+      "mergeEffect": {
+        "type": "MERGE_EXPLOSION",
+        "damageMul": 1.8,
+        "radiusTiles": 1.8
+      }
+    },
+    {
+      "id": "slow",
+      "name": "Slow",
+      "role": "SLOW",
+      "baseAtk": 4,
+      "atkSpd": 0.6,
+      "rangeTiles": 3.6,
+      "slowPct": 0.2,
+      "slowDurationSec": 1.5,
+      "mergeEffect": {
+        "type": "SLOW_FIELD",
+        "slowPct": 0.35,
+        "radiusTiles": 2.0,
+        "durationSec": 2.5
+      }
+    },
+    {
+      "id": "wall",
+      "name": "Wall",
+      "role": "WALL",
+      "baseAtk": 2,
+      "atkSpd": 0.5,
+      "rangeTiles": 1.8,
+      "knockbackTiles": 0.6,
+      "mergeEffect": {
+        "type": "KNOCKBACK",
+        "knockbackTiles": 1.4,
+        "stunSec": 0.0
+      }
+    }
+  ],
+  "shop": {
+    "slotCount": 3,
+    "buyCost": 3,
+    "rerollCost": 2,
+    "sellRefund": 1,
+    "refillSeconds": 2.5,
+    "spawnRates": {
+      "shooter": 0.32,
+      "splash": 0.24,
+      "slow": 0.22,
+      "wall": 0.22
+    }
+  }
 }
