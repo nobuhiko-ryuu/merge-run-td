@@ -14,7 +14,7 @@
   - `app/src/main/assets/upgrades.json`
 
 ## What changed
-- 
+-
 
 ## How to test
 ### Commands
@@ -23,8 +23,8 @@
 - [ ] (Optional) `./gradlew lint`
 
 ### Manual (if applicable)
-1. 
-2. 
+1.
+2.
 
 ## Definition of Done (checklist)
 - [ ] Builds locally (Debug)
@@ -40,7 +40,7 @@
 - After:
 
 ## Notes / Assumptions
-- 
+-
 
 ## Risks / Follow-ups
 - Risks:
