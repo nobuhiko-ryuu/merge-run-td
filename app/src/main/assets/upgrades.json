@@ -1,44 +1,44 @@
 {
   "upgrades": [
     {
-      "id": "atk_boost_i",
-      "name": "Sharpened Ammo",
+      "id": "u_atk_1",
       "type": "Instant",
+      "name": "Overclock I",
       "atkMul": 1.12
     },
     {
-      "id": "aspd_boost_i",
-      "name": "Quick Hands",
+      "id": "u_aspd_1",
       "type": "Instant",
+      "name": "Servo Tune",
       "aspdMul": 1.12
     },
     {
-      "id": "economy_rule",
-      "name": "Thrifty Circuit",
+      "id": "u_econ_rule",
       "type": "Rule",
-      "shopRerollCostDelta": -1,
+      "name": "Cheap Reroll",
+      "rerollCostDelta": -1,
       "maxApplications": 1
     },
     {
-      "id": "free_reroll_rule",
-      "name": "Lucky Refresh",
+      "id": "u_free_roll",
       "type": "Rule",
+      "name": "Lucky Start",
       "waveStartFreeRerollBonus": 1,
       "maxApplications": 2
     },
     {
-      "id": "wall_stun_t",
-      "name": "Concussion Plating",
+      "id": "u_wall_stun",
       "type": "Transform",
+      "name": "Impact Core",
       "targetRole": "WALL",
-      "knockbackStunSec": 0.8
+      "stunSec": 0.8
     },
     {
-      "id": "slow_amp_t",
-      "name": "Cryo Bloom",
+      "id": "u_slow_field",
       "type": "Transform",
+      "name": "Cryo Expansion",
       "targetRole": "SLOW",
-      "slowFieldBonusPct": 0.12
+      "slowFieldBonus": 0.12
     }
   ],
   "rules": {

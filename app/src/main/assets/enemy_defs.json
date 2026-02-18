@@ -1,43 +1,35 @@
 {
   "enemies": [
     {
-      "id": "grunt",
-      "name": "Grunt",
+      "id": "normal",
       "hp": 100,
       "speed": 1.0,
       "baseDamage": 1,
-      "rewardCoins": 1,
-      "boss": false
+      "reward": 1
     },
     {
-      "id": "runner",
-      "name": "Runner",
+      "id": "fast",
       "hp": 70,
-      "speed": 1.4,
+      "speed": 1.45,
       "baseDamage": 1,
-      "rewardCoins": 1,
-      "boss": false
+      "reward": 1
     },
     {
       "id": "tank",
-      "name": "Tank",
-      "hp": 220,
-      "speed": 0.8,
+      "hp": 240,
+      "speed": 0.78,
       "baseDamage": 1,
-      "rewardCoins": 2,
-      "boss": false
+      "reward": 2
     },
     {
       "id": "boss",
-      "name": "Boss",
-      "hp": 1800,
+      "hp": 2000,
       "speed": 0.7,
       "baseDamage": 3,
-      "rewardCoins": 8,
-      "boss": true
+      "reward": 8
     }
   ],
   "lane": {
-    "lengthTiles": 12
+    "tiles": 12
   }
 }

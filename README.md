@@ -10,3 +10,6 @@ Android MVP for a merge + lane defense game built with Kotlin and Jetpack Compos
 ./gradlew test
 ./gradlew assembleDebug
 ```
+
+
+Text encoding hygiene: key project text/config files are kept clean UTF-8 without hidden bidirectional control characters.
