@@ -9,7 +9,7 @@ private val DarkColorScheme = darkColorScheme()
 private val LightColorScheme = lightColorScheme()
 
 @Composable
-fun MergeRunTdTheme(
+fun mergeruntdTheme(
     darkTheme: Boolean = false,
     content: @Composable () -> Unit,
 ) {
