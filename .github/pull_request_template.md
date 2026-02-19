@@ -1,5 +1,4 @@
 <!-- .github/pull_request_template.md -->
-
 ## Goal / Scope
 - **Goal**:
 - **In scope**:
