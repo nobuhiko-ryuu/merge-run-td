@@ -22,16 +22,23 @@ data class TickResult(
 
 sealed interface DomainEvent {
     data class WaveStarted(val waveIndex: Int) : DomainEvent
+
     data class WaveEnded(val waveIndex: Int) : DomainEvent
+
     data class BaseDamaged(val amount: Int) : DomainEvent
+
     data class EnemySpawned(val enemyId: String) : DomainEvent
+
     data class EnemyKilled(val enemyId: String) : DomainEvent
 }
 
 class GameEngine(
     private val config: GameConfig,
 ) {
-    fun newRun(stageIndex: Int, seed: Long): RunState {
+    fun newRun(
+        stageIndex: Int,
+        seed: Long,
+    ): RunState {
         val guardianHp = config.unitDefs.firstOrNull { it.id == "guardian" }?.baseHp ?: 70
         return RunState(
             stageIndex = stageIndex,
@@ -48,7 +55,10 @@ class GameEngine(
         )
     }
 
-    fun tick(state: RunState, deltaMs: Long): TickResult {
+    fun tick(
+        state: RunState,
+        deltaMs: Long,
+    ): TickResult {
         var nextState = state.copy(timeMs = state.timeMs + deltaMs)
         val events = mutableListOf<DomainEvent>()
 
@@ -107,7 +117,10 @@ class GameEngine(
         return TickResult(nextState, events)
     }
 
-    private fun tickCombat(state: RunState, deltaMs: Long): TickResult {
+    private fun tickCombat(
+        state: RunState,
+        deltaMs: Long,
+    ): TickResult {
         if (state.phase != Phase.COMBAT) return TickResult(state, emptyList())
 
         val events = mutableListOf<DomainEvent>()
@@ -214,7 +227,10 @@ class GameEngine(
         var due = 0L
         val pending = mutableListOf<PendingSpawn>()
 
-        fun add(type: String, count: Int) {
+        fun add(
+            type: String,
+            count: Int,
+        ) {
             repeat(count) {
                 pending += PendingSpawn(type, due)
                 due += 600L

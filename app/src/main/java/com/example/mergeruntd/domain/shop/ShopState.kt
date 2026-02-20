@@ -54,11 +54,8 @@ fun tickShop(
     ) to nextRng
 }
 
-fun buyUnit(shop: ShopState): Result<ShopState> =
-    Result.failure(UnsupportedOperationException("Buy not implemented in PR1"))
+fun buyUnit(shop: ShopState): Result<ShopState> = Result.failure(UnsupportedOperationException("Buy not implemented in PR1"))
 
-fun rerollShop(shop: ShopState): Result<ShopState> =
-    Result.failure(UnsupportedOperationException("Reroll not implemented in PR1"))
+fun rerollShop(shop: ShopState): Result<ShopState> = Result.failure(UnsupportedOperationException("Reroll not implemented in PR1"))
 
-fun sellUnit(shop: ShopState): Result<ShopState> =
-    Result.failure(UnsupportedOperationException("Sell not implemented in PR1"))
+fun sellUnit(shop: ShopState): Result<ShopState> = Result.failure(UnsupportedOperationException("Sell not implemented in PR1"))
