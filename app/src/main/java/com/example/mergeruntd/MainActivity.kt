@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,6 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mergeruntd.ui.components.AppCard
+import com.example.mergeruntd.ui.components.PrimaryButton
+import com.example.mergeruntd.ui.components.SecondaryButton
 import com.example.mergeruntd.ui.run.runScreen
 import com.example.mergeruntd.ui.theme.mergeruntdTheme
 
@@ -100,16 +103,20 @@ private fun homeScreen(
     onHowToPlayClick: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text(text = "Merge Run TD", style = MaterialTheme.typography.headlineMedium)
-        Button(onClick = onPlayClick) {
-            Text(text = "Play")
-        }
-        Button(onClick = onHowToPlayClick) {
-            Text(text = "How to play")
+        AppCard(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(text = "Merge Run TD", style = MaterialTheme.typography.headlineMedium)
+                PrimaryButton(text = "Play", onClick = onPlayClick)
+                SecondaryButton(text = "How to play", onClick = onHowToPlayClick)
+            }
         }
     }
 }
@@ -118,17 +125,19 @@ private fun homeScreen(
 private fun howToPlayScreen(onBack: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(text = "How to Play", style = MaterialTheme.typography.headlineSmall)
-        Text("• Buy from Shop and place units on the board")
-        Text("• Merge identical units to power up")
-        Text("• Use Reroll to refresh shop slots")
-        Text("• Sell selected units to recover coins")
-        Text("• Upgrades appear after wave 2/4 and auto-pick on timeout")
-        Text("• Lose when HP reaches 0, win by surviving 5 waves")
-        Button(onClick = onBack) {
-            Text("Back")
+        AppCard(modifier = Modifier.fillMaxWidth()) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(text = "How to Play", style = MaterialTheme.typography.headlineMedium)
+                Text("• Buy from Shop and place units on the board")
+                Text("• Merge identical units to power up")
+                Text("• Use Reroll to refresh shop slots")
+                Text("• Sell selected units to recover coins")
+                Text("• Upgrades appear after wave 2/4 and auto-pick on timeout")
+                Text("• Lose when HP reaches 0, win by surviving 5 waves")
+                SecondaryButton(text = "Back", onClick = onBack)
+            }
         }
     }
 }
