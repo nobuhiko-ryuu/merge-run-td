@@ -74,6 +74,10 @@ private fun mergeRunTdApp() {
                     runViewModel.onRunScreenActive(false)
                     currentScreen = Screen.HOME
                 },
+                onBuyFromShop = runViewModel::buyFromShop,
+                onRerollShop = runViewModel::rerollShop,
+                onBoardCellTapped = runViewModel::onBoardCellTapped,
+                onSellSelected = runViewModel::sellSelected,
             )
         }
     }

@@ -5,6 +5,7 @@ import com.example.mergeruntd.domain.core.GameConstants
 data class UnitInstance(
     val id: String,
     val role: String,
+    val level: Int = 1,
     val cooldownMs: Long = 0L,
 )
 

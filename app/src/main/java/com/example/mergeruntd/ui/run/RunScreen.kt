@@ -2,6 +2,7 @@ package com.example.mergeruntd.ui.run
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,19 +27,36 @@ import com.example.mergeruntd.domain.shop.ShopState
 fun runScreen(
     uiState: RunUiState,
     onBackToHome: () -> Unit,
+    onBuyFromShop: (Int) -> Unit,
+    onRerollShop: () -> Unit,
+    onBoardCellTapped: (Int) -> Unit,
+    onSellSelected: () -> Unit,
 ) {
     when (uiState) {
         RunUiState.Idle -> Text("Preparing run...")
         is RunUiState.Error -> Text("Error: ${uiState.message}")
-        is RunUiState.Running -> runContent(runState = uiState.runState, onBackToHome = onBackToHome)
+        is RunUiState.Running ->
+            runContent(
+                uiState = uiState,
+                onBackToHome = onBackToHome,
+                onBuyFromShop = onBuyFromShop,
+                onRerollShop = onRerollShop,
+                onBoardCellTapped = onBoardCellTapped,
+                onSellSelected = onSellSelected,
+            )
     }
 }
 
 @Composable
 private fun runContent(
-    runState: RunState,
+    uiState: RunUiState.Running,
     onBackToHome: () -> Unit,
+    onBuyFromShop: (Int) -> Unit,
+    onRerollShop: () -> Unit,
+    onBoardCellTapped: (Int) -> Unit,
+    onSellSelected: () -> Unit,
 ) {
+    val runState = uiState.runState
     LazyColumn(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -49,9 +67,33 @@ private fun runContent(
             }
         }
         item { hudView(runState) }
-        item { boardView(runState.board) }
+        item {
+            if (uiState.message != null) {
+                Text(text = uiState.message, color = MaterialTheme.colorScheme.error)
+            }
+        }
+        item {
+            boardView(
+                board = runState.board,
+                selectedCellIndex = uiState.selectedCellIndex,
+                onCellTapped = onBoardCellTapped,
+            )
+        }
+        item {
+            if (uiState.selectedCellIndex != null && runState.board.cells[uiState.selectedCellIndex] != null) {
+                Button(onClick = onSellSelected) {
+                    Text("Sell (+1)")
+                }
+            }
+        }
         item { laneView(runState.lane) }
-        item { shopView(runState.shop) }
+        item {
+            shopView(
+                shop = runState.shop,
+                onBuyFromShop = onBuyFromShop,
+                onRerollShop = onRerollShop,
+            )
+        }
     }
 }
 
@@ -60,6 +102,7 @@ private fun hudView(runState: RunState) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text("HUD", style = MaterialTheme.typography.titleMedium)
         Text("Coins: ${runState.coins}")
+        Text("Free reroll: ${runState.freeRerollLeft}")
         Text("Base HP: ${runState.baseHp}")
         Text("Stage: ${runState.stageIndex + 1}")
         Text("Wave: ${runState.waveIndex + 1}")
@@ -68,15 +111,29 @@ private fun hudView(runState: RunState) {
 }
 
 @Composable
-private fun boardView(board: Board) {
+private fun boardView(
+    board: Board,
+    selectedCellIndex: Int?,
+    onCellTapped: (Int) -> Unit,
+) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text("Board", style = MaterialTheme.typography.titleMedium)
         repeat(board.rows) { row ->
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 repeat(board.cols) { col ->
                     val index = row * board.cols + col
-                    val role = board.cells[index]?.role ?: ""
-                    tileCell(text = role)
+                    val unit = board.cells[index]
+                    val text =
+                        if (unit == null) {
+                            ""
+                        } else {
+                            "${unit.role}\nLv${unit.level}"
+                        }
+                    tileCell(
+                        text = text,
+                        isSelected = index == selectedCellIndex,
+                        onTap = { onCellTapped(index) },
+                    )
                 }
             }
         }
@@ -99,13 +156,24 @@ private fun laneView(lane: LaneState) {
 }
 
 @Composable
-private fun shopView(shop: ShopState) {
+private fun shopView(
+    shop: ShopState,
+    onBuyFromShop: (Int) -> Unit,
+    onRerollShop: () -> Unit,
+) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text("Shop", style = MaterialTheme.typography.titleMedium)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            shop.slots.forEach { slot ->
-                tileCell(text = slot.unitId ?: "Empty", size = 72)
+            shop.slots.forEachIndexed { index, slot ->
+                tileCell(
+                    text = slot.unitId ?: "Empty",
+                    size = 72,
+                    onTap = { onBuyFromShop(index) },
+                )
             }
+        }
+        Button(onClick = onRerollShop) {
+            Text("Reroll (-2)")
         }
     }
 }
@@ -114,14 +182,22 @@ private fun shopView(shop: ShopState) {
 private fun tileCell(
     text: String,
     size: Int = 56,
+    isSelected: Boolean = false,
+    onTap: (() -> Unit)? = null,
 ) {
     Column(
         modifier =
             Modifier
                 .size(size.dp)
-                .border(1.dp, Color.Gray)
+                .border(2.dp, if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray)
                 .background(Color.White)
-                .padding(2.dp),
+                .let { modifier ->
+                    if (onTap != null) {
+                        modifier.clickable { onTap() }
+                    } else {
+                        modifier
+                    }
+                }.padding(2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
