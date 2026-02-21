@@ -3,6 +3,7 @@ package com.example.mergeruntd.domain.config
 import com.example.mergeruntd.domain.model.EnemyDef
 import com.example.mergeruntd.domain.model.GameConfig
 import com.example.mergeruntd.domain.model.ShopConfig
+import com.example.mergeruntd.domain.model.UpgradeRules
 import com.example.mergeruntd.domain.model.StageConfig
 import com.example.mergeruntd.domain.model.UnitDef
 import com.example.mergeruntd.domain.model.UpgradeDef
@@ -73,6 +74,15 @@ data class ShopDto(
 @Serializable
 data class UpgradesDto(
     val upgrades: List<UpgradeDto>,
+    val rules: UpgradeRulesDto,
+)
+
+@Serializable
+data class UpgradeRulesDto(
+    val offerAfterWaves: List<Int>,
+    val timeoutSec: Int,
+    val maxTransformPerRun: Int,
+    val autoPickTypeOnTimeout: String,
 )
 
 @Serializable
@@ -80,6 +90,12 @@ data class UpgradeDto(
     val id: String,
     val type: String,
     val name: String,
+    val atkMul: Double? = null,
+    val aspdMul: Double? = null,
+    val rerollCostDelta: Int? = null,
+    val waveStartFreeRerollBonus: Int? = null,
+    val maxApplications: Int? = null,
+    val targetRole: String? = null,
 )
 
 fun toGameConfig(
@@ -134,8 +150,21 @@ fun toGameConfig(
                     id = upgrade.id,
                     type = upgrade.type,
                     name = upgrade.name,
+                    atkMul = upgrade.atkMul,
+                    aspdMul = upgrade.aspdMul,
+                    rerollCostDelta = upgrade.rerollCostDelta,
+                    waveStartFreeRerollBonus = upgrade.waveStartFreeRerollBonus,
+                    maxApplications = upgrade.maxApplications,
+                    targetRole = upgrade.targetRole,
                 )
             },
+        upgradeRules =
+            UpgradeRules(
+                offerAfterWaves = upgrades.rules.offerAfterWaves,
+                timeoutSec = upgrades.rules.timeoutSec,
+                maxTransformPerRun = upgrades.rules.maxTransformPerRun,
+                autoPickTypeOnTimeout = upgrades.rules.autoPickTypeOnTimeout,
+            ),
         laneTiles = enemyDefs.lane.tiles,
         shopConfig =
             ShopConfig(

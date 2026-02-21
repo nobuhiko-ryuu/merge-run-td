@@ -78,6 +78,9 @@ private fun mergeRunTdApp() {
                 onRerollShop = runViewModel::rerollShop,
                 onBoardCellTapped = runViewModel::onBoardCellTapped,
                 onSellSelected = runViewModel::sellSelected,
+                onSelectUpgrade = runViewModel::selectUpgrade,
+                onRetry = runViewModel::retryRun,
+                onNextStage = runViewModel::nextStageRun,
             )
         }
     }
