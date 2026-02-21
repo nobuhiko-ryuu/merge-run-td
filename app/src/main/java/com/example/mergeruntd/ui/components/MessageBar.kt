@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
-fun MessageBar(
+fun messageBar(
     message: String?,
     isError: Boolean = false,
     modifier: Modifier = Modifier,

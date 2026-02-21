@@ -23,9 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mergeruntd.ui.components.AppCard
-import com.example.mergeruntd.ui.components.PrimaryButton
-import com.example.mergeruntd.ui.components.SecondaryButton
+import com.example.mergeruntd.ui.components.appCard
+import com.example.mergeruntd.ui.components.primaryButton
+import com.example.mergeruntd.ui.components.secondaryButton
 import com.example.mergeruntd.ui.run.runScreen
 import com.example.mergeruntd.ui.theme.mergeruntdTheme
 
@@ -107,15 +107,15 @@ private fun homeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        AppCard(modifier = Modifier.fillMaxWidth()) {
+        appCard(modifier = Modifier.fillMaxWidth()) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(text = "Merge Run TD", style = MaterialTheme.typography.headlineMedium)
-                PrimaryButton(text = "Play", onClick = onPlayClick)
-                SecondaryButton(text = "How to play", onClick = onHowToPlayClick)
+                primaryButton(text = "Play", onClick = onPlayClick)
+                secondaryButton(text = "How to play", onClick = onHowToPlayClick)
             }
         }
     }
@@ -127,7 +127,7 @@ private fun howToPlayScreen(onBack: () -> Unit) {
         modifier = Modifier.fillMaxSize().padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        AppCard(modifier = Modifier.fillMaxWidth()) {
+        appCard(modifier = Modifier.fillMaxWidth()) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(text = "How to Play", style = MaterialTheme.typography.headlineMedium)
                 Text("• Buy from Shop and place units on the board")
@@ -136,7 +136,7 @@ private fun howToPlayScreen(onBack: () -> Unit) {
                 Text("• Sell selected units to recover coins")
                 Text("• Upgrades appear after wave 2/4 and auto-pick on timeout")
                 Text("• Lose when HP reaches 0, win by surviving 5 waves")
-                SecondaryButton(text = "Back", onClick = onBack)
+                secondaryButton(text = "Back", onClick = onBack)
             }
         }
     }

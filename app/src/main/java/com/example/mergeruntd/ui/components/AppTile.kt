@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppTile(
+fun appTile(
     text: String,
     selected: Boolean = false,
     size: Dp = 56.dp,

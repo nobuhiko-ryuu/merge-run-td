@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun PrimaryButton(
+fun primaryButton(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
@@ -26,7 +26,7 @@ fun PrimaryButton(
 }
 
 @Composable
-fun SecondaryButton(
+fun secondaryButton(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
