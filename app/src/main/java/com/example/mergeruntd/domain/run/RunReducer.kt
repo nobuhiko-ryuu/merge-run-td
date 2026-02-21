@@ -40,7 +40,10 @@ object RunReducer {
         if (state.coins < GameConstants.BUY_COST) return failure("Not enough coins")
 
         val unitId = state.shop.slots[slotIndex].unitId ?: return failure("Selected slot is empty")
-        val unitDef = unitDefs.firstOrNull { it.id == unitId } ?: return failure("Unit definition missing")
+        val unitDef =
+            unitDefs.firstOrNull { it.id == unitId }
+                ?: unitDefs.firstOrNull { it.role.equals(unitId, ignoreCase = true) }
+                ?: return failure("Unit definition missing")
 
         val emptyCellIndex = state.board.cells.indexOfFirst { it == null }
         if (emptyCellIndex == -1) return failure("Board is full")
