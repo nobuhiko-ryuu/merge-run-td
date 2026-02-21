@@ -63,6 +63,9 @@ object Rng {
 }
 
 object GameConstants {
+    const val MAX_STAGE_INDEX = 19
+    const val INITIAL_COINS = 6
+
     const val BOARD_ROWS = 4
     const val BOARD_COLS = 4
 

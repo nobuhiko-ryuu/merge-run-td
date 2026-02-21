@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mergeruntd.domain.config.AssetConfigLoader
+import com.example.mergeruntd.domain.core.GameConstants
 import com.example.mergeruntd.domain.core.RunState
 import com.example.mergeruntd.domain.engine.GameEngine
 import com.example.mergeruntd.domain.run.RunIntent
@@ -33,7 +34,7 @@ class RunViewModel(
 
     fun startRun(stageIndex: Int = 0) {
         runCatching {
-            val initial = engine.newRun(stageIndex = stageIndex.coerceIn(0, 19), seed = 7L)
+            val initial = engine.newRun(stageIndex = stageIndex.coerceIn(0, GameConstants.MAX_STAGE_INDEX), seed = 7L)
             runState = initial
             selectedCellIndex = null
             _uiState.value = RunUiState.Running(initial)
@@ -61,9 +62,15 @@ class RunViewModel(
         val current = runState ?: return
         val selected = selectedCellIndex
 
+        val tappedCell = current.board.cells.getOrNull(cellIndex)
+        if (tappedCell == null && cellIndex !in current.board.cells.indices) {
+            emitRunning(current, "Invalid board cell")
+            return
+        }
+
         if (selected == null) {
-            selectedCellIndex = if (current.board.cells[cellIndex] != null) cellIndex else null
-            emitRunning(current)
+            selectedCellIndex = if (tappedCell != null) cellIndex else null
+            emitRunning(current, if (tappedCell == null) "Select a unit first" else null)
             return
         }
 
@@ -73,7 +80,7 @@ class RunViewModel(
             return
         }
 
-        val targetOccupied = current.board.cells[cellIndex] != null
+        val targetOccupied = current.board.cells.getOrNull(cellIndex) != null
         if (targetOccupied) {
             applyIntent(RunIntent.Merge(fromCellIndex = selected, toCellIndex = cellIndex))
         } else {
@@ -92,8 +99,12 @@ class RunViewModel(
     }
 
     fun nextStageRun() {
-        val stageIndex = ((runState?.stageIndex ?: 0) + 1).coerceIn(0, 19)
-        startRun(stageIndex)
+        val currentStageIndex = runState?.stageIndex ?: 0
+        if (currentStageIndex >= GameConstants.MAX_STAGE_INDEX) {
+            startRun(0)
+            return
+        }
+        startRun(currentStageIndex + 1)
     }
 
     fun onRunScreenActive(active: Boolean) {
@@ -124,7 +135,18 @@ class RunViewModel(
         val current = runState ?: return
         val result = engine.tick(current, TICK_MS)
         runState = result.state
-        emitRunning(result.state)
+
+        val autoPickedName =
+            if (current.offeredUpgrade != null && result.state.offeredUpgrade == null) {
+                val selected = result.state.appliedUpgradeCount.keys - current.appliedUpgradeCount.keys
+                selected.firstOrNull()?.let { id ->
+                    config.upgrades.firstOrNull { it.id == id }?.name
+                }
+            } else {
+                null
+            }
+        val tickMessage = autoPickedName?.let { "Auto picked: $it" }
+        emitRunning(result.state, tickMessage)
     }
 
     private fun applyIntent(intent: RunIntent) {
@@ -138,9 +160,10 @@ class RunViewModel(
                     is RunIntent.Merge,
                     is RunIntent.SellAt,
                     -> null
-                    else -> selectedCellIndex?.takeIf { nextState.board.cells[it] != null }
+                    else -> selectedCellIndex?.takeIf { index -> nextState.board.cells.getOrNull(index) != null }
                 }
-            emitRunning(nextState)
+            val message = if (intent is RunIntent.SellAt) "Unit sold" else null
+            emitRunning(nextState, message)
         }.onFailure { throwable ->
             emitRunning(current, throwable.message ?: "Action failed")
         }

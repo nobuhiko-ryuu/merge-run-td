@@ -46,11 +46,11 @@ class GameEngine(
     ): RunState {
         val guardianHp = config.unitDefs.firstOrNull { it.id == "guardian" }?.baseHp ?: 70
         return RunState(
-            stageIndex = stageIndex,
+            stageIndex = stageIndex.coerceIn(0, GameConstants.MAX_STAGE_INDEX),
             waveIndex = 0,
             phase = Phase.PREP,
             baseHp = guardianHp,
-            coins = 0,
+            coins = GameConstants.INITIAL_COINS,
             freeRerollLeft = 0,
             board = Board(),
             shop = ShopState(),
@@ -259,6 +259,7 @@ class GameEngine(
                 board = attacked.board,
                 lane = nextLane,
                 baseHp = state.baseHp - baseDamageTaken,
+                coins = state.coins + attacked.coinsEarned,
             ),
             events,
         )
@@ -267,6 +268,7 @@ class GameEngine(
     private data class AttackOutcome(
         val board: Board,
         val enemies: List<EnemyInstance>,
+        val coinsEarned: Int,
     )
 
     private fun applyUnitAttacks(
@@ -277,6 +279,7 @@ class GameEngine(
         state: RunState,
     ): AttackOutcome {
         var mutableEnemies = enemies
+        var coinsEarned = 0
         val updatedUnits = mutableListOf<UnitInstance>()
 
         for (unit in board.allUnits()) {
@@ -297,6 +300,7 @@ class GameEngine(
                 mutableEnemies =
                     if (nextHp <= 0) {
                         events += DomainEvent.EnemyKilled(target.id)
+                        coinsEarned += config.enemyDefs.firstOrNull { it.id == target.id }?.reward ?: 0
                         mutableEnemies.toMutableList().also { it.removeAt(targetIndex) }
                     } else {
                         mutableEnemies.toMutableList().also { it[targetIndex] = target.copy(hp = nextHp) }
@@ -311,6 +315,7 @@ class GameEngine(
         return AttackOutcome(
             board = board.withUpdatedUnits(updatedUnits),
             enemies = mutableEnemies,
+            coinsEarned = coinsEarned,
         )
     }
 
@@ -336,7 +341,10 @@ class GameEngine(
         return pending
     }
 
-    private fun stageConfig(stageIndex: Int): StageConfig = config.stages[stageIndex]
+    private fun stageConfig(stageIndex: Int): StageConfig {
+        val bounded = stageIndex.coerceIn(0, config.stages.lastIndex.coerceAtLeast(0))
+        return config.stages[bounded]
+    }
 
     private fun enemySpeedMsPerTile(enemyId: String): Long =
         when (enemyId) {

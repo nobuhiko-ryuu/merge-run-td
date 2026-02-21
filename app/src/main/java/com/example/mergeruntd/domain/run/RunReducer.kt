@@ -27,14 +27,19 @@ object RunReducer {
         intent: RunIntent,
         unitDefs: List<UnitDef>,
         config: GameConfig? = null,
-    ): Result<RunState> =
-        when (intent) {
+    ): Result<RunState> {
+        if (state.offeredUpgrade != null && intent !is RunIntent.SelectUpgrade) {
+            return failure("Finish upgrade selection first")
+        }
+
+        return when (intent) {
             is RunIntent.BuyFromShop -> buyFromShop(state, intent.slotIndex, unitDefs)
             RunIntent.RerollShop -> rerollShop(state, unitDefs)
             is RunIntent.SellAt -> sellAt(state, intent.cellIndex)
             is RunIntent.Merge -> merge(state, intent.fromCellIndex, intent.toCellIndex)
             is RunIntent.SelectUpgrade -> selectUpgrade(state, intent.optionIndex, config)
         }
+    }
 
     private fun buyFromShop(
         state: RunState,
@@ -104,7 +109,7 @@ object RunReducer {
         cellIndex: Int,
     ): Result<RunState> {
         if (cellIndex !in state.board.cells.indices) return failure("Invalid board cell")
-        if (state.board.cells[cellIndex] == null) return failure("Cell is already empty")
+        if (state.board.cells[cellIndex] == null) return failure("Cannot sell: selected cell is empty")
 
         val updatedCells = state.board.cells.toMutableList()
         updatedCells[cellIndex] = null
@@ -130,9 +135,8 @@ object RunReducer {
         val from = state.board.cells[fromCellIndex] ?: return failure("Source cell is empty")
         val to = state.board.cells[toCellIndex] ?: return failure("Target cell is empty")
 
-        if (from.role != to.role || from.level != to.level) {
-            return failure("Merge requires same role and level")
-        }
+        if (from.role != to.role) return failure("Cannot merge: roles do not match")
+        if (from.level != to.level) return failure("Cannot merge: levels do not match")
 
         val (mergedId, nextRng) = nextUnitId(state)
         val updatedCells = state.board.cells.toMutableList()
