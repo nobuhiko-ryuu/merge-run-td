@@ -105,4 +105,61 @@ class WaveLogicTest {
         assertTrue("Expected to clear at least wave 1", state.waveIndex >= 1)
         assertTrue("Base HP should remain positive in early game", state.baseHp > 0)
     }
+
+
+    @Test
+    fun twoShootersInStageOneEarnCoinsReliably() {
+        val loader = AssetConfigLoader(TestResourceProvider(javaClass.classLoader!!))
+        val loaded = loader.loadAll()
+        val engine = GameEngine(loaded)
+
+        val cells = MutableList(GameConstants.BOARD_ROWS * GameConstants.BOARD_COLS) { null as UnitInstance? }
+        cells[0] = UnitInstance(id = "u-1", role = "SHOOTER", unitDefId = "archer", level = 1)
+        cells[1] = UnitInstance(id = "u-2", role = "SHOOTER", unitDefId = "archer", level = 1)
+        var state = engine.newRun(stageIndex = 0, seed = 15L).copy(board = Board(cells = cells))
+        val initialCoins = state.coins
+
+        repeat(40) {
+            state = engine.tick(state, 500L).state
+        }
+
+        assertTrue("Expected two shooters to kill enemies and gain coins", state.coins > initialCoins)
+    }
+
+
+    @Test
+    fun shooterByUnitIdFallbackDealsDamageAndEarnsCoins() {
+        val loader = AssetConfigLoader(TestResourceProvider(javaClass.classLoader!!))
+        val loaded = loader.loadAll()
+
+        val config =
+            loaded.copy(
+                stages =
+                    listOf(
+                        loaded.stages.first().copy(
+                            waves =
+                                listOf(
+                                    WaveConfig(normal = 2, fast = 0, tank = 0, boss = 0),
+                                    WaveConfig(0, 0, 0, 0),
+                                    WaveConfig(0, 0, 0, 0),
+                                    WaveConfig(0, 0, 0, 0),
+                                    WaveConfig(0, 0, 0, 0),
+                                ),
+                        ),
+                    ),
+            )
+
+        val engine = GameEngine(config)
+        val cells = MutableList(GameConstants.BOARD_ROWS * GameConstants.BOARD_COLS) { null as UnitInstance? }
+        cells[0] = UnitInstance(id = "u-archer", role = "archer", unitDefId = "archer", level = 1)
+        var state = engine.newRun(stageIndex = 0, seed = 99L).copy(board = Board(cells = cells))
+        val initialCoins = state.coins
+
+        repeat(30) {
+            state = engine.tick(state, 500L).state
+        }
+
+        assertTrue("Expected fallback role mapping to allow kills", state.coins > initialCoins)
+    }
+
 }

@@ -188,6 +188,7 @@ private fun laneView(lane: LaneState) {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text("Lane", style = MaterialTheme.typography.titleMedium)
             Text("Enemies: ${lane.enemies.size}")
+            Text("Front HP: ${lane.enemies.maxByOrNull { it.tile }?.hp ?: 0}")
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier.fillMaxWidth()) {
                 repeat(lane.length) { tile ->
                     val count = enemiesByTile[tile] ?: 0
