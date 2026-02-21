@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,7 +46,9 @@ private enum class Screen {
 }
 
 @Composable
-private fun mergeRunTdApp(runViewModel: RunViewModel = viewModel { RunViewModel(applicationContext) }) {
+private fun mergeRunTdApp() {
+    val context = LocalContext.current
+    val runViewModel: RunViewModel = viewModel { RunViewModel(context.applicationContext) }
     var currentScreen by remember { mutableStateOf(Screen.HOME) }
     val uiState by runViewModel.uiState.collectAsStateWithLifecycle()
 
