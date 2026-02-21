@@ -285,7 +285,7 @@ class GameEngine(
         for (unit in board.allUnits()) {
             val reducedCd = unit.cooldownMs - deltaMs
 
-            if (unit.role == "WALL") {
+            if (resolvedRole(unit.role, unit.unitDefId) == "WALL") {
                 updatedUnits += unit.copy(cooldownMs = reducedCd.coerceAtLeast(0L))
                 continue
             }
@@ -294,7 +294,7 @@ class GameEngine(
 
             if (reducedCd <= 0 && targetIndex != null) {
                 val target = mutableEnemies[targetIndex]
-                val damage = unitDamage(unit.role, state)
+                val damage = unitDamage(unit.role, unit.unitDefId, state)
                 val nextHp = target.hp - damage
 
                 mutableEnemies =
@@ -306,7 +306,7 @@ class GameEngine(
                         mutableEnemies.toMutableList().also { it[targetIndex] = target.copy(hp = nextHp) }
                     }
 
-                updatedUnits += unit.copy(cooldownMs = unitCooldown(unit.role, state))
+                updatedUnits += unit.copy(cooldownMs = unitCooldown(unit.role, unit.unitDefId, state))
             } else {
                 updatedUnits += unit.copy(cooldownMs = reducedCd.coerceAtLeast(0L))
             }
@@ -355,26 +355,49 @@ class GameEngine(
             else -> GameConstants.NORMAL_SPEED_MS_PER_TILE
         }
 
+    private fun resolvedRole(
+        role: String,
+        unitDefId: String?,
+    ): String {
+        val normalizedRole = role.uppercase()
+        if (normalizedRole in setOf("SHOOTER", "SPLASH", "SLOW", "WALL")) {
+            return normalizedRole
+        }
+
+        return when (unitDefId?.lowercase()) {
+            "archer" -> "SHOOTER"
+            "bombard" -> "SPLASH"
+            "frost" -> "SLOW"
+            "guardian" -> "WALL"
+            else -> normalizedRole
+        }
+    }
+
     private fun unitDamage(
         role: String,
+        unitDefId: String?,
         state: RunState,
     ): Int {
         val base =
-            when (role) {
+            when (resolvedRole(role, unitDefId)) {
                 "SHOOTER" -> GameConstants.SHOOTER_DMG
                 "SPLASH" -> GameConstants.SPLASH_DMG
                 "SLOW" -> GameConstants.SLOW_DMG
                 else -> 0
             }
+        if (base <= 0) {
+            return 0
+        }
         return (base * state.atkMul).toInt().coerceAtLeast(1)
     }
 
     private fun unitCooldown(
         role: String,
+        unitDefId: String?,
         state: RunState,
     ): Long {
         val base =
-            when (role) {
+            when (resolvedRole(role, unitDefId)) {
                 "SHOOTER" -> GameConstants.SHOOTER_CD_MS
                 "SPLASH" -> GameConstants.SPLASH_CD_MS
                 "SLOW" -> GameConstants.SLOW_CD_MS

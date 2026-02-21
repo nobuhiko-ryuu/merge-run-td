@@ -60,7 +60,7 @@ object RunReducer {
 
         val (instanceId, nextRng) = nextUnitId(state)
         val updatedCells = state.board.cells.toMutableList()
-        updatedCells[emptyCellIndex] = UnitInstance(id = instanceId, role = unitDef.role, level = 1)
+        updatedCells[emptyCellIndex] = UnitInstance(id = instanceId, role = unitDef.role, unitDefId = unitDef.id, level = 1)
 
         val updatedSlots = state.shop.slots.toMutableList()
         updatedSlots[slotIndex] = ShopSlot(unitId = null)
