@@ -5,6 +5,7 @@ import com.example.mergeruntd.domain.core.GameConstants
 import com.example.mergeruntd.domain.core.Rng
 import com.example.mergeruntd.domain.core.RngState
 import com.example.mergeruntd.domain.core.RunState
+import com.example.mergeruntd.domain.model.GameConfig
 import com.example.mergeruntd.domain.model.UnitDef
 import com.example.mergeruntd.domain.shop.ShopSlot
 
@@ -16,6 +17,8 @@ sealed interface RunIntent {
     data class SellAt(val cellIndex: Int) : RunIntent
 
     data class Merge(val fromCellIndex: Int, val toCellIndex: Int) : RunIntent
+
+    data class SelectUpgrade(val optionIndex: Int) : RunIntent
 }
 
 object RunReducer {
@@ -23,12 +26,14 @@ object RunReducer {
         state: RunState,
         intent: RunIntent,
         unitDefs: List<UnitDef>,
+        config: GameConfig? = null,
     ): Result<RunState> =
         when (intent) {
             is RunIntent.BuyFromShop -> buyFromShop(state, intent.slotIndex, unitDefs)
             RunIntent.RerollShop -> rerollShop(state, unitDefs)
             is RunIntent.SellAt -> sellAt(state, intent.cellIndex)
             is RunIntent.Merge -> merge(state, intent.fromCellIndex, intent.toCellIndex)
+            is RunIntent.SelectUpgrade -> selectUpgrade(state, intent.optionIndex, config)
         }
 
     private fun buyFromShop(
@@ -72,7 +77,8 @@ object RunReducer {
         if (unitDefs.isEmpty()) return failure("No units available for reroll")
 
         val isFree = state.freeRerollLeft > 0
-        if (!isFree && state.coins < GameConstants.REROLL_COST) return failure("Not enough coins")
+        val rerollCost = (GameConstants.REROLL_COST + state.rerollCostDelta).coerceAtLeast(0)
+        if (!isFree && state.coins < rerollCost) return failure("Not enough coins")
 
         var nextRng = state.rng
         val rerolledSlots =
@@ -85,7 +91,7 @@ object RunReducer {
 
         return Result.success(
             state.copy(
-                coins = if (isFree) state.coins else state.coins - GameConstants.REROLL_COST,
+                coins = if (isFree) state.coins else state.coins - rerollCost,
                 freeRerollLeft = if (isFree) state.freeRerollLeft - 1 else state.freeRerollLeft,
                 shop = state.shop.copy(slots = rerolledSlots, refillTimerMs = 0L),
                 rng = nextRng,
@@ -139,6 +145,18 @@ object RunReducer {
                 rng = nextRng,
             ),
         )
+    }
+
+    private fun selectUpgrade(
+        state: RunState,
+        optionIndex: Int,
+        config: GameConfig?,
+    ): Result<RunState> {
+        val offer = state.offeredUpgrade ?: return failure("No upgrade offer")
+        val selected = offer.options.getOrNull(optionIndex) ?: return failure("Invalid upgrade option")
+        val resolvedConfig = config ?: return failure("Config is required for upgrade selection")
+        if (selected.type == "TRANSFORM" && state.transformUsed) return failure("Transform already used")
+        return Result.success(applyUpgrade(state, selected, resolvedConfig))
     }
 
     private fun nextUnitId(state: RunState): Pair<String, RngState> {

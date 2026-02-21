@@ -31,9 +31,9 @@ class RunViewModel(
     private var selectedCellIndex: Int? = null
     private var tickJob: Job? = null
 
-    fun startRun() {
+    fun startRun(stageIndex: Int = 0) {
         runCatching {
-            val initial = engine.newRun(stageIndex = 0, seed = 7L)
+            val initial = engine.newRun(stageIndex = stageIndex.coerceIn(0, 19), seed = 7L)
             runState = initial
             selectedCellIndex = null
             _uiState.value = RunUiState.Running(initial)
@@ -82,6 +82,20 @@ class RunViewModel(
         }
     }
 
+    fun selectUpgrade(optionIndex: Int) {
+        applyIntent(RunIntent.SelectUpgrade(optionIndex))
+    }
+
+    fun retryRun() {
+        val stageIndex = runState?.stageIndex ?: 0
+        startRun(stageIndex)
+    }
+
+    fun nextStageRun() {
+        val stageIndex = ((runState?.stageIndex ?: 0) + 1).coerceIn(0, 19)
+        startRun(stageIndex)
+    }
+
     fun onRunScreenActive(active: Boolean) {
         if (active) {
             startTicking()
@@ -115,7 +129,7 @@ class RunViewModel(
 
     private fun applyIntent(intent: RunIntent) {
         val current = runState ?: return
-        val result = RunReducer.reduce(current, intent, config.unitDefs)
+        val result = RunReducer.reduce(current, intent, config.unitDefs, config)
 
         result.onSuccess { nextState ->
             runState = nextState

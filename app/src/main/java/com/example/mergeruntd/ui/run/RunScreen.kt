@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.mergeruntd.domain.board.Board
+import com.example.mergeruntd.domain.core.RunEnd
 import com.example.mergeruntd.domain.core.RunState
 import com.example.mergeruntd.domain.lane.LaneState
 import com.example.mergeruntd.domain.shop.ShopState
+import kotlin.math.ceil
 
 @Composable
 fun runScreen(
@@ -31,6 +34,9 @@ fun runScreen(
     onRerollShop: () -> Unit,
     onBoardCellTapped: (Int) -> Unit,
     onSellSelected: () -> Unit,
+    onSelectUpgrade: (Int) -> Unit,
+    onRetry: () -> Unit,
+    onNextStage: () -> Unit,
 ) {
     when (uiState) {
         RunUiState.Idle -> Text("Preparing run...")
@@ -43,6 +49,9 @@ fun runScreen(
                 onRerollShop = onRerollShop,
                 onBoardCellTapped = onBoardCellTapped,
                 onSellSelected = onSellSelected,
+                onSelectUpgrade = onSelectUpgrade,
+                onRetry = onRetry,
+                onNextStage = onNextStage,
             )
     }
 }
@@ -55,6 +64,9 @@ private fun runContent(
     onRerollShop: () -> Unit,
     onBoardCellTapped: (Int) -> Unit,
     onSellSelected: () -> Unit,
+    onSelectUpgrade: (Int) -> Unit,
+    onRetry: () -> Unit,
+    onNextStage: () -> Unit,
 ) {
     val runState = uiState.runState
     LazyColumn(
@@ -95,6 +107,41 @@ private fun runContent(
             )
         }
     }
+
+    runState.offeredUpgrade?.let { offer ->
+        val remainMs = (offer.deadlineTimeMs - runState.timeMs).coerceAtLeast(0)
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text("Choose Upgrade") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Wave ${offer.waveIndex} clear reward")
+                    Text("Auto pick in ${ceil(remainMs / 1000.0).toInt()}s")
+                    offer.options.forEachIndexed { index, option ->
+                        Button(onClick = { onSelectUpgrade(index) }) {
+                            Text("${option.name} (${option.type})")
+                        }
+                    }
+                }
+            },
+            confirmButton = {},
+        )
+    }
+
+    runState.end?.let { end ->
+        AlertDialog(
+            onDismissRequest = {},
+            title = { Text("RUN_END") },
+            text = { Text(if (end == RunEnd.Victory) "Victory" else "Defeat") },
+            confirmButton = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = onRetry) { Text("Retry") }
+                    Button(onClick = onNextStage) { Text("Next Stage") }
+                    Button(onClick = onBackToHome) { Text("Home") }
+                }
+            },
+        )
+    }
 }
 
 @Composable
@@ -107,6 +154,7 @@ private fun hudView(runState: RunState) {
         Text("Stage: ${runState.stageIndex + 1}")
         Text("Wave: ${runState.waveIndex + 1}")
         Text("Phase: ${runState.phase}")
+        Text("ATK x${"%.2f".format(runState.atkMul)} / ASPD x${"%.2f".format(runState.aspdMul)}")
     }
 }
 
@@ -123,12 +171,7 @@ private fun boardView(
                 repeat(board.cols) { col ->
                     val index = row * board.cols + col
                     val unit = board.cells[index]
-                    val text =
-                        if (unit == null) {
-                            ""
-                        } else {
-                            "${unit.role}\nLv${unit.level}"
-                        }
+                    val text = if (unit == null) "" else "${unit.role}\nLv${unit.level}"
                     tileCell(
                         text = text,
                         isSelected = index == selectedCellIndex,
@@ -173,7 +216,7 @@ private fun shopView(
             }
         }
         Button(onClick = onRerollShop) {
-            Text("Reroll (-2)")
+            Text("Reroll")
         }
     }
 }
@@ -191,13 +234,8 @@ private fun tileCell(
                 .size(size.dp)
                 .border(2.dp, if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray)
                 .background(Color.White)
-                .let { modifier ->
-                    if (onTap != null) {
-                        modifier.clickable { onTap() }
-                    } else {
-                        modifier
-                    }
-                }.padding(2.dp),
+                .let { modifier -> if (onTap != null) modifier.clickable { onTap() } else modifier }
+                .padding(2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {

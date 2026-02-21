@@ -2,6 +2,7 @@ package com.example.mergeruntd.domain.core
 
 import com.example.mergeruntd.domain.board.Board
 import com.example.mergeruntd.domain.lane.LaneState
+import com.example.mergeruntd.domain.model.UpgradeDef
 import com.example.mergeruntd.domain.shop.ShopState
 
 enum class Phase {
@@ -9,6 +10,18 @@ enum class Phase {
     COMBAT,
     POST_WAVE,
     ENDED,
+}
+
+data class UpgradeOffer(
+    val waveIndex: Int,
+    val options: List<UpgradeDef>,
+    val deadlineTimeMs: Long,
+)
+
+sealed interface RunEnd {
+    data object Victory : RunEnd
+
+    data object Defeat : RunEnd
 }
 
 data class RunState(
@@ -21,6 +34,14 @@ data class RunState(
     val board: Board,
     val shop: ShopState,
     val lane: LaneState,
+    val atkMul: Double = 1.0,
+    val aspdMul: Double = 1.0,
+    val rerollCostDelta: Int = 0,
+    val waveStartFreeRerollBonus: Int = 0,
+    val offeredUpgrade: UpgradeOffer? = null,
+    val transformUsed: Boolean = false,
+    val end: RunEnd? = null,
+    val appliedUpgradeCount: Map<String, Int> = emptyMap(),
     val timeMs: Long,
     val rng: RngState,
 )
