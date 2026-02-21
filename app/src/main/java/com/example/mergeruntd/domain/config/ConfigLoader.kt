@@ -1,8 +1,8 @@
 package com.example.mergeruntd.domain.config
 
 import com.example.mergeruntd.domain.model.GameConfig
-import java.io.InputStream
 import kotlinx.serialization.json.Json
+import java.io.InputStream
 
 interface InputStreamProvider {
     fun open(path: String): InputStream
