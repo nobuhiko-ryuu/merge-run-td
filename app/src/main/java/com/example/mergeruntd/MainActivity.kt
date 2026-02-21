@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mergeruntd.ui.run.RunScreen
+import com.example.mergeruntd.ui.run.runScreen
 import com.example.mergeruntd.ui.theme.mergeruntdTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    MergeRunTdApp()
+                    mergeRunTdApp()
                 }
             }
         }
@@ -45,13 +45,13 @@ private enum class Screen {
 }
 
 @Composable
-private fun MergeRunTdApp(runViewModel: RunViewModel = viewModel { RunViewModel(applicationContext) }) {
+private fun mergeRunTdApp(runViewModel: RunViewModel = viewModel { RunViewModel(applicationContext) }) {
     var currentScreen by remember { mutableStateOf(Screen.HOME) }
     val uiState by runViewModel.uiState.collectAsStateWithLifecycle()
 
     when (currentScreen) {
         Screen.HOME ->
-            HomeScreen(
+            homeScreen(
                 onPlayClick = {
                     runViewModel.startRun()
                     currentScreen = Screen.RUN
@@ -65,7 +65,7 @@ private fun MergeRunTdApp(runViewModel: RunViewModel = viewModel { RunViewModel(
                     runViewModel.onRunScreenActive(false)
                 }
             }
-            RunScreen(
+            runScreen(
                 uiState = uiState,
                 onBackToHome = {
                     runViewModel.onRunScreenActive(false)
@@ -77,7 +77,7 @@ private fun MergeRunTdApp(runViewModel: RunViewModel = viewModel { RunViewModel(
 }
 
 @Composable
-private fun HomeScreen(onPlayClick: () -> Unit) {
+private fun homeScreen(onPlayClick: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
