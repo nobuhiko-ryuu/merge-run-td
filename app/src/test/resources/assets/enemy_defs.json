@@ -1,0 +1,35 @@
+{
+  "enemies": [
+    {
+      "id": "normal",
+      "hp": 100,
+      "speed": 1.0,
+      "baseDamage": 1,
+      "reward": 1
+    },
+    {
+      "id": "fast",
+      "hp": 70,
+      "speed": 1.45,
+      "baseDamage": 1,
+      "reward": 1
+    },
+    {
+      "id": "tank",
+      "hp": 240,
+      "speed": 0.78,
+      "baseDamage": 1,
+      "reward": 2
+    },
+    {
+      "id": "boss",
+      "hp": 2000,
+      "speed": 0.7,
+      "baseDamage": 3,
+      "reward": 8
+    }
+  ],
+  "lane": {
+    "tiles": 12
+  }
+}
