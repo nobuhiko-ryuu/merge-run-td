@@ -69,6 +69,7 @@ private fun runContent(
     onNextStage: () -> Unit,
 ) {
     val runState = uiState.runState
+    val offerActive = runState.offeredUpgrade != null
     LazyColumn(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -89,11 +90,12 @@ private fun runContent(
                 board = runState.board,
                 selectedCellIndex = uiState.selectedCellIndex,
                 onCellTapped = onBoardCellTapped,
+                enabled = !offerActive,
             )
         }
         item {
-            if (uiState.selectedCellIndex != null && runState.board.cells[uiState.selectedCellIndex] != null) {
-                Button(onClick = onSellSelected) {
+            if (uiState.selectedCellIndex != null && runState.board.cells.getOrNull(uiState.selectedCellIndex) != null) {
+                Button(onClick = onSellSelected, enabled = !offerActive) {
                     Text("Sell (+1)")
                 }
             }
@@ -104,6 +106,7 @@ private fun runContent(
                 shop = runState.shop,
                 onBuyFromShop = onBuyFromShop,
                 onRerollShop = onRerollShop,
+                enabled = !offerActive,
             )
         }
     }
@@ -116,7 +119,7 @@ private fun runContent(
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Wave ${offer.waveIndex} clear reward")
-                    Text("Auto pick in ${ceil(remainMs / 1000.0).toInt()}s")
+                    Text("Auto pick in ${ceil(remainMs / 1000.0).toInt()} sec")
                     offer.options.forEachIndexed { index, option ->
                         Button(onClick = { onSelectUpgrade(index) }) {
                             Text("${option.name} (${option.type})")
@@ -163,6 +166,7 @@ private fun boardView(
     board: Board,
     selectedCellIndex: Int?,
     onCellTapped: (Int) -> Unit,
+    enabled: Boolean,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text("Board", style = MaterialTheme.typography.titleMedium)
@@ -175,7 +179,7 @@ private fun boardView(
                     tileCell(
                         text = text,
                         isSelected = index == selectedCellIndex,
-                        onTap = { onCellTapped(index) },
+                        onTap = if (enabled) ({ onCellTapped(index) }) else null,
                     )
                 }
             }
@@ -203,6 +207,7 @@ private fun shopView(
     shop: ShopState,
     onBuyFromShop: (Int) -> Unit,
     onRerollShop: () -> Unit,
+    enabled: Boolean,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Text("Shop", style = MaterialTheme.typography.titleMedium)
@@ -211,11 +216,11 @@ private fun shopView(
                 tileCell(
                     text = slot.unitId ?: "Empty",
                     size = 72,
-                    onTap = { onBuyFromShop(index) },
+                    onTap = if (enabled) ({ onBuyFromShop(index) }) else null,
                 )
             }
         }
-        Button(onClick = onRerollShop) {
+        Button(onClick = onRerollShop, enabled = enabled) {
             Text("Reroll")
         }
     }
@@ -233,7 +238,7 @@ private fun tileCell(
             Modifier
                 .size(size.dp)
                 .border(2.dp, if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray)
-                .background(Color.White)
+                .background(if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f) else Color.White)
                 .let { modifier -> if (onTap != null) modifier.clickable { onTap() } else modifier }
                 .padding(2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

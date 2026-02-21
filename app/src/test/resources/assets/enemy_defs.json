@@ -5,14 +5,14 @@
       "hp": 100,
       "speed": 1.0,
       "baseDamage": 1,
-      "reward": 1
+      "reward": 3
     },
     {
       "id": "fast",
       "hp": 70,
       "speed": 1.45,
       "baseDamage": 1,
-      "reward": 1
+      "reward": 2
     },
     {
       "id": "tank",
@@ -26,7 +26,7 @@
       "hp": 2000,
       "speed": 0.7,
       "baseDamage": 3,
-      "reward": 8
+      "reward": 10
     }
   ],
   "lane": {
