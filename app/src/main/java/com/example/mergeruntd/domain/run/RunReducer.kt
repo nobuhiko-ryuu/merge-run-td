@@ -147,7 +147,6 @@ object RunReducer {
         )
     }
 
-
     private fun selectUpgrade(
         state: RunState,
         optionIndex: Int,

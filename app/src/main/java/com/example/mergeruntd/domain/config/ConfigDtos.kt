@@ -3,10 +3,10 @@ package com.example.mergeruntd.domain.config
 import com.example.mergeruntd.domain.model.EnemyDef
 import com.example.mergeruntd.domain.model.GameConfig
 import com.example.mergeruntd.domain.model.ShopConfig
-import com.example.mergeruntd.domain.model.UpgradeRules
 import com.example.mergeruntd.domain.model.StageConfig
 import com.example.mergeruntd.domain.model.UnitDef
 import com.example.mergeruntd.domain.model.UpgradeDef
+import com.example.mergeruntd.domain.model.UpgradeRules
 import com.example.mergeruntd.domain.model.WaveConfig
 import kotlinx.serialization.Serializable
 

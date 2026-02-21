@@ -92,7 +92,10 @@ class GameEngine(
             nextState =
                 nextState.copy(
                     phase = Phase.COMBAT,
-                    freeRerollLeft = nextState.freeRerollLeft + GameConstants.WAVE_START_FREE_REROLL_BONUS + nextState.waveStartFreeRerollBonus,
+                    freeRerollLeft =
+                        nextState.freeRerollLeft +
+                            GameConstants.WAVE_START_FREE_REROLL_BONUS +
+                            nextState.waveStartFreeRerollBonus,
                     lane =
                         nextState.lane.copy(
                             pendingSpawns = spawns,
@@ -118,10 +121,20 @@ class GameEngine(
             val nextWaveIndex = nextState.waveIndex + 1
             nextState =
                 when {
-                    nextWaveIndex >= GameConstants.STAGE_WAVES -> nextState.copy(phase = Phase.ENDED, waveIndex = nextWaveIndex, end = RunEnd.Victory)
+                    nextWaveIndex >= GameConstants.STAGE_WAVES ->
+                        nextState.copy(
+                            phase = Phase.ENDED,
+                            waveIndex = nextWaveIndex,
+                            end = RunEnd.Victory,
+                        )
                     shouldOfferUpgrade(clearedWaveNumber) -> {
                         val (offer, nextRng) = buildUpgradeOffer(nextState, clearedWaveNumber)
-                        nextState.copy(phase = Phase.POST_WAVE, waveIndex = nextWaveIndex, offeredUpgrade = offer, rng = nextRng)
+                        nextState.copy(
+                            phase = Phase.POST_WAVE,
+                            waveIndex = nextWaveIndex,
+                            offeredUpgrade = offer,
+                            rng = nextRng,
+                        )
                     }
                     else -> nextState.copy(phase = Phase.POST_WAVE, waveIndex = nextWaveIndex)
                 }
@@ -144,8 +157,7 @@ class GameEngine(
         return applyUpgrade(state, selected, config)
     }
 
-    private fun shouldOfferUpgrade(clearedWaveNumber: Int): Boolean =
-        clearedWaveNumber in config.upgradeRules.offerAfterWaves
+    private fun shouldOfferUpgrade(clearedWaveNumber: Int): Boolean = clearedWaveNumber in config.upgradeRules.offerAfterWaves
 
     private fun buildUpgradeOffer(
         state: RunState,
