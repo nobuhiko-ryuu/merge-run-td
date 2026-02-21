@@ -72,12 +72,13 @@ object RunReducer {
         if (!isFree && state.coins < GameConstants.REROLL_COST) return failure("Not enough coins")
 
         var nextRng = state.rng
-        val rerolledSlots = state.shop.slots.map {
-            val (roll, updatedRng) = Rng.nextDouble(nextRng)
-            nextRng = updatedRng
-            val index = (roll * unitDefs.size).toInt().coerceIn(0, unitDefs.lastIndex)
-            ShopSlot(unitId = unitDefs[index].id)
-        }
+        val rerolledSlots =
+            state.shop.slots.map {
+                val (roll, updatedRng) = Rng.nextDouble(nextRng)
+                nextRng = updatedRng
+                val index = (roll * unitDefs.size).toInt().coerceIn(0, unitDefs.lastIndex)
+                ShopSlot(unitId = unitDefs[index].id)
+            }
 
         return Result.success(
             state.copy(
