@@ -90,7 +90,28 @@ class UpgradeFlowTest {
 
         val defeatConfig =
             loaded.copy(
-                stages = listOf(loaded.stages.first().copy(waves = listOf(WaveConfig(normal = 0, fast = 0, tank = 0, boss = 1)) + List(4) { WaveConfig(0, 0, 0, 0) })),
+                stages =
+                    listOf(
+                        loaded.stages.first().copy(
+                            waves =
+                                listOf(
+                                    WaveConfig(
+                                        normal = 0,
+                                        fast = 0,
+                                        tank = 0,
+                                        boss = 1,
+                                    ),
+                                ) +
+                                    List(4) {
+                                        WaveConfig(
+                                            normal = 0,
+                                            fast = 0,
+                                            tank = 0,
+                                            boss = 0,
+                                        )
+                                    },
+                        ),
+                    ),
             )
         val defeatEngine = GameEngine(defeatConfig)
         var defeat = defeatEngine.newRun(0, 6L).copy(baseHp = 1)
