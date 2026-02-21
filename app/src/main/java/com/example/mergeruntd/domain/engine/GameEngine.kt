@@ -171,7 +171,17 @@ class GameEngine(
                 underCap && transformAllowed
             }
 
-        val (options, nextRng) = sampleUpgrades(available.ifEmpty { config.upgrades }, state.rng, count = 3)
+        val source = available.ifEmpty { config.upgrades }
+        val (sampledOptions, nextRng) = sampleUpgrades(source, state.rng, count = 3)
+        val preferredType = config.upgradeRules.autoPickTypeOnTimeout
+        val preferredOption = source.firstOrNull { it.type == preferredType }
+        val options =
+            if (preferredOption != null && sampledOptions.none { it.type == preferredType }) {
+                listOf(preferredOption) + sampledOptions.drop(1)
+            } else {
+                sampledOptions
+            }
+
         return UpgradeOffer(
             waveIndex = clearedWaveNumber,
             options = options,
